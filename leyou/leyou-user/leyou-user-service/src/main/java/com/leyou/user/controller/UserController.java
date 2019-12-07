@@ -68,6 +68,10 @@ public class UserController {
             return ResultUtil.fail(ExceptionEnum.ALREADY_USERNAME_PASSWORD);
         }
         return ResultUtil.succ();
-
     }
+
+    public Result foundByUsername(){
+        return null;
+    }
+
 }
