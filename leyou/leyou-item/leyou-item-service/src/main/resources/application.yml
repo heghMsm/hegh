@@ -1,0 +1,30 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: item-service
+
+  datasource:
+    url: jdbc:mysql://rm-bp1h3nvlzky20645nao.mysql.rds.aliyuncs.com:3306/leyou?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: Hgh@123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+  rabbitmq:
+    host: 127.0.0.1
+    username: admin
+    password: 123456
+    template:
+      exchange: LEYOU.ITEM.EXCHANGE
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+
+mybatis:
+  type-aliases-package: com.leyou.item.pojo
