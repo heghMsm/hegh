@@ -5,7 +5,10 @@ import com.leyou.user.mapper.UserMapper;
 import com.leyou.user.pojo.User;
 import com.leyou.user.util.CodecUtils;
 import com.leyou.common.utils.NumberUtils;
+import com.leyou.user.util.Md5Utils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -20,6 +23,8 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserService {
 
+    private Logger logger = LoggerFactory.getLogger(getClass().getName());
+
     @Autowired
     private UserMapper userMapper;
 
@@ -31,6 +36,7 @@ public class UserService {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
 
     private static final String KEY_PREFIX = "user:verify";
 
@@ -106,5 +112,29 @@ public class UserService {
         this.userMapper.insertSelective(user);
         this.redisTemplate.delete(KEY_PREFIX + phone);
         return "0000";
+    }
+
+    /**
+     * 用户登录接口
+     * @param username
+     * @param password
+     * @return
+     */
+    public User login(String username, String password) {
+        logger.info("longin UserName:" + username +"PassWord:" + password);
+        User record = User.builder().username(username).build();
+        User user = userMapper.selectOne(record);
+        logger.info(user.getPhone());
+        if (user == null){
+            logger.info("该用户不存在");
+            return user;
+        }
+         //获取盐，对用户的密码加盐加密
+         password = CodecUtils.md5Hex(password,user.getSalt());
+        if (StringUtils.equals(password,user.getPassword())){
+            return user;
+        }
+        logger.info("登录失败");
+        return null;
     }
 }

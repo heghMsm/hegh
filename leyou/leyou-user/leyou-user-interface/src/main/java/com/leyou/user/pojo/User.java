@@ -52,6 +52,7 @@ public class User {
     /**
      * 密码的盐值
      */
+    @JsonIgnore
     private String salt;
 
 

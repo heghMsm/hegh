@@ -5,6 +5,9 @@ import com.leyou.user.pojo.User;
 import com.leyou.user.service.UserService;
 import com.leyou.common.utils.Result;
 import com.leyou.common.utils.ResultUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,8 @@ import javax.websocket.server.PathParam;
 
 @RestController
 public class UserController {
+
+    private Logger logger = LoggerFactory.getLogger(getClass().getName());
 
     @Autowired
     private UserService userService;
@@ -70,8 +75,25 @@ public class UserController {
         return ResultUtil.succ();
     }
 
-    public Result foundByUsername(){
-        return null;
+    /**
+     * 用户登录接口
+     * @param username
+     * @param password
+     * @return
+     */
+    @GetMapping("login")
+    public Result queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+            logger.info("用户名或密码为空");
+            return ResultUtil.fail(ExceptionEnum.PHONE_CANNOT_BE_NULL);
+        }
+        User user = userService.login(username, password);
+        if (user != null){
+            return ResultUtil.succ(user);
+        } else{
+            logger.info("系统异常，用户" + username +"登录失败");
+            return ResultUtil.fail(ExceptionEnum.INVALID_USER_DATA_TYPE);
+        }
     }
 
 }
