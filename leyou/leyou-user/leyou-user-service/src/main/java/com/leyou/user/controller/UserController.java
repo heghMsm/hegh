@@ -5,6 +5,10 @@ import com.leyou.user.pojo.User;
 import com.leyou.user.service.UserService;
 import com.leyou.common.utils.Result;
 import com.leyou.common.utils.ResultUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
+@Api(value = "用户接口")
 @RestController
 public class UserController {
 
@@ -29,6 +34,9 @@ public class UserController {
      * @param type
      * @return
      */
+    @ApiOperation(value = "判断用户类型接口")
+    @ApiImplicitParams({@ApiImplicitParam(name = "data",value = "用户数据",required = true,dataType = "String"),
+    @ApiImplicitParam(name = "type",value = "数据类型",required = true,dataType = "Integer")})
     @GetMapping("/check/{data}/{type}")
     public ResponseEntity<Boolean> checkUser(@PathVariable("data")String data,@PathVariable("type")Integer type){
         Boolean bool = this.userService.checkUser(data, type);
@@ -43,6 +51,8 @@ public class UserController {
      * @param phone
      * @return
      */
+    @ApiOperation(value = "发送短信验证码接口")
+    @ApiImplicitParam(name = "phone",value = "手机号",required = true,dataType ="String" )
     @PostMapping("code")
     public Result sendVerifyCode(@PathParam("phone")String phone){
         if (phone == null){
@@ -60,6 +70,11 @@ public class UserController {
      * @param code
      * @return
      */
+    @ApiOperation(value = "用户注册接口")
+    @ApiImplicitParams({@ApiImplicitParam(name = "username",value = "用户名",required = true,dataType = "String"),
+         @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String"),
+         @ApiImplicitParam(name ="phone",value ="手机号",required = true,dataType = "String"),
+         @ApiImplicitParam(name = "code",value = "验证码",required = true,dataType = "String")})
     @PostMapping("register")
     public Result register(@Valid String username, @Valid String phone,@Valid String password,String code){
         if (username ==null || phone == null || password == null || code == null){
@@ -72,6 +87,7 @@ public class UserController {
         if ("0002".equals(result)){
             return ResultUtil.fail(ExceptionEnum.ALREADY_USERNAME_PASSWORD);
         }
+        logger.info("用户;"+ username +"注册成功,验证码为：" + code);
         return ResultUtil.succ();
     }
 
@@ -81,6 +97,9 @@ public class UserController {
      * @param password
      * @return
      */
+    @ApiOperation(value = "用户登录接口")
+    @ApiImplicitParams({@ApiImplicitParam(name = "username",value = "用户名",required = true,dataType = "String"),
+    @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String")})
     @GetMapping("login")
     public Result queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){

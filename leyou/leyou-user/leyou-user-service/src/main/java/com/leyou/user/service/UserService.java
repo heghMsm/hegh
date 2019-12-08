@@ -121,7 +121,7 @@ public class UserService {
      * @return
      */
     public User login(String username, String password) {
-        logger.info("longin UserName:" + username +"PassWord:" + password);
+        logger.info("longin UserName: " + username +" PassWord: " + password);
         User record = User.builder().username(username).build();
         User user = userMapper.selectOne(record);
         logger.info(user.getPhone());
