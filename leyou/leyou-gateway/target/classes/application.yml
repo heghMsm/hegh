@@ -12,3 +12,13 @@ zuul:
   prefix: /api
   routes:
     item-service: /item/** #路由到商品的微服务
+    user-service: /user/**
+    auth-service: /auth/**
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 10000 # 熔断超时时长：10000ms
