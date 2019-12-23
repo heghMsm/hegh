@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: service-user
+    name: user-service
 
   datasource:
     url: jdbc:mysql://rm-bp1h3nvlzky20645nao.mysql.rds.aliyuncs.com:3306/leyou?useUnicode=true&amp;characterEncoding=UTF-8

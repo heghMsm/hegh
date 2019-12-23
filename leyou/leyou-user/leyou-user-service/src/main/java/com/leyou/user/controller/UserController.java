@@ -92,27 +92,28 @@ public class UserController {
     }
 
     /**
-     * 用户登录接口
+     * 用户查询接口
      * @param username
      * @param password
      * @return
      */
-    @ApiOperation(value = "用户登录接口")
+    @ApiOperation(value = "用户查询接口")
     @ApiImplicitParams({@ApiImplicitParam(name = "username",value = "用户名",required = true,dataType = "String"),
     @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String")})
-    @GetMapping("login")
-    public Result queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
-        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+    @GetMapping("query")
+    public User queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
+        /*if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
             logger.info("用户名或密码为空");
             return ResultUtil.fail(ExceptionEnum.PHONE_CANNOT_BE_NULL);
-        }
+        }*/
         User user = userService.login(username, password);
-        if (user != null){
+        return user;
+       /* if (user != null){
             return ResultUtil.succ(user);
         } else{
             logger.info("系统异常，用户" + username +"登录失败");
             return ResultUtil.fail(ExceptionEnum.INVALID_USER_DATA_TYPE);
-        }
+        }*/
     }
 
 }
