@@ -4,6 +4,12 @@ spring:
   application:
     name: auth-server
 
+  redis:
+    host: 39.106.106.51
+    port: 6379
+    password: 123456
+    database: 0
+
 eureka:
   client:
     service-url:
