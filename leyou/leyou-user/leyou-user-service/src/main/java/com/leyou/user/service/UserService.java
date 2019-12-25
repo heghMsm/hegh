@@ -124,10 +124,9 @@ public class UserService {
         logger.info("longin UserName: " + username +" PassWord: " + password);
         User record = User.builder().username(username).build();
         User user = userMapper.selectOne(record);
-        logger.info(user.getPhone());
         if (user == null){
             logger.info("该用户不存在");
-            return user;
+            return null;
         }
          //获取盐，对用户的密码加盐加密
          password = CodecUtils.md5Hex(password,user.getSalt());

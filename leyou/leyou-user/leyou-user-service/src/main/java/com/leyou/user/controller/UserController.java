@@ -102,18 +102,18 @@ public class UserController {
     @ApiImplicitParam(name = "password",value = "密码",required = true,dataType = "String")})
     @GetMapping("query")
     public User queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
-        /*if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)){
             logger.info("用户名或密码为空");
-            return ResultUtil.fail(ExceptionEnum.PHONE_CANNOT_BE_NULL);
-        }*/
+            return null;
+        }
         User user = userService.login(username, password);
-        return user;
-       /* if (user != null){
-            return ResultUtil.succ(user);
+
+        if (user != null){
+            return user;
         } else{
             logger.info("系统异常，用户" + username +"登录失败");
-            return ResultUtil.fail(ExceptionEnum.INVALID_USER_DATA_TYPE);
-        }*/
+            return null;
+        }
     }
 
 }
