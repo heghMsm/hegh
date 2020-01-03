@@ -1,0 +1,28 @@
+server:
+  port: 8087
+spring:
+  application:
+    name: auth-server
+
+  redis:
+    host: 39.106.106.51
+    port: 6379
+    password: 123456
+    database: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://39.106.106.51:10086/eureka
+    registry-fetch-interval-seconds: 10
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+
+jwt:
+  secret: leyou@Login(Auth}*^31)&yun6%f3q2 # 登录校验的密钥
+  pubKey: -B@1055e4af # 公钥
+  priKey: -B@5577140b # 私钥
+  expire: 30 # 过期时间,单位分钟
+  cookieName: LEYOU_TOKEN
+

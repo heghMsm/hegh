@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/leyou-user.iml" filepath="$PROJECT_DIR$/leyou-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leyou-user-interface/leyou-user-interface.iml" filepath="$PROJECT_DIR$/leyou-user-interface/leyou-user-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/leyou-user-service/leyou-user-service.iml" filepath="$PROJECT_DIR$/leyou-user-service/leyou-user-service.iml" />
+    </modules>
+  </component>
+</project>

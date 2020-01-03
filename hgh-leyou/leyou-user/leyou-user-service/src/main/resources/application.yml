@@ -1,0 +1,37 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: user-service
+
+  datasource:
+    url: jdbc:mysql://rm-bp1h3nvlzky20645nao.mysql.rds.aliyuncs.com:3306/leyou?useUnicode=true&amp;characterEncoding=UTF-8
+    username: root
+    password: Hgh@123456
+    driver-class-name: com.mysql.jdbc.Driver
+
+  redis:
+    host: 39.106.106.51
+    port: 6379
+    password: 123456
+    timeout: 10000
+    database: 1
+
+  rabbitmq:
+    host: 39.106.106.51
+    #host: 127.0.0.1
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://39.106.106.51:10086/eureka
+      #defaultZone: http://127.0.0.1:10086/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 15
+    lease-renewal-interval-in-seconds: 5
+
+mybatis:
+  type-aliases-package: com.leyou.user.pojo
